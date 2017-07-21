@@ -21,6 +21,6 @@ var userSchema = mongoose.Schema({
         required: true,
         default: 'billionz',
     },
-});
+}, {timestamps: true});
 
 var User = module.exports = mongoose.model('User', userSchema);

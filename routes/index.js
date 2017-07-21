@@ -3,36 +3,18 @@ var router = express.Router();
 
 //Models
 var User = require('../models/user')
+var Room = require('../models/room')
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  //res.render('index', { title: 'Express' });
-
-  User.find({}).exec(function(err, users){
-    if (err) throw err;
-
-    //Send JSON
-    res.json(users);
-  });
-
+  res.send('There is nothing here. You must request a valid API route.');
 });
 
-router.get('/addUser', function(req, res, next){
-    
-    var firstName = req.query.firstName;
-    var lastName = req.query.lastName;
-    var age = req.query.age;
-    var netWorth = req.query.netWorth;
-
-    var user = new User({
-      firstName: firstName,
-      lastName: lastName,
-      age: age,
-      netWorth: netWorth,
-    });
-    
-    user.save();
-    res.send('User added.')
+/* GET /rooms */
+router.get('/rooms', function(req, res, next) { //We return every room
+  Room.find({}).exec(function(err, rooms){
+    res.json(rooms);
+  });
 });
 
 module.exports = router;
