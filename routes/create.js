@@ -23,7 +23,6 @@ router.post('/room', function(req, res, next){
         themeColor: themeColor,
     })
 
-    console.log(newRoom)
     newRoom.save(); //Save the new room
 
     res.redirect('/rooms'); //Redirect to the rooms route
