@@ -4,6 +4,8 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var session = require('express-session');
+var flash = require('connect-flash');
 
 var index = require('./routes/index');
 var create = require('./routes/create');
@@ -14,8 +16,33 @@ var app = express();
 var mongoose = require('mongoose');
 mongoose.Promise = require('bluebird');
 
+//Require Passport for auth
+var passport = require('passport');
+var LocalStrategy = require('passport-local');
+
 //Database setup
 var db = mongoose.connect('mongodb://localhost/rescape');
+
+//Initialize express-session
+app.use(session({
+  secret: 'rescape-secret-key',
+  saveUninitialized: true,
+  resave: true
+}));
+
+//Initialize Passport and sessions
+// Passport init
+app.use(passport.initialize());
+app.use(passport.session());
+
+//connect Flash
+app.use(flash());
+
+//Add req.user as a local variable
+app.use(function (req, res, next){
+  res.locals.user = req.user || null;
+  next();
+});
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

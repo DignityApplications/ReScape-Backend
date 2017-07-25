@@ -23,26 +23,32 @@ router.post('/room', function(req, res, next){
 
     newRoom.save(); //Save the new room
 
-    res.redirect('/rooms'); //Redireect to the root
+    res.redirect('/rooms'); //Redirect to the rooms route
 });
 
-/* GET create/user */
+/* GET and POST to /user */
 router.get('/user', function(req, res, next){
-    
-    var firstName = req.query.firstName;
-    var lastName = req.query.lastName;
-    var age = req.query.age;
-    var netWorth = req.query.netWorth;
+    res.render('forms/user')
+});
 
-    var user = new User({
+router.post('/user', function(req, res, next){
+    
+    var firstName = req.body.firstName;
+    var lastName = req.body.lastName;
+    var email = req.body.email;
+    var password = req.body.password;
+
+    var newUser = new User({
       firstName: firstName,
       lastName: lastName,
-      age: age,
-      netWorth: netWorth,
+      email: email,
+      password: password,
     });
     
-    user.save();
-    res.send('User added.')
+    User.createUser(newUser, function(err, user){
+        return  res.redirect('/users'); //Redirect to the users route
+    });	
+
 });
 
 module.exports = router;
