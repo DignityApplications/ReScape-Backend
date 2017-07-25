@@ -42,6 +42,11 @@ var roomSchema = mongoose.Schema({
         type: Number,
         required: true,
         default: 0,
+    },
+    themeColor: {
+        type: String,
+        default: '#ffffff',
+        required: true,
     }
 }, {timestamps: true});
 

@@ -14,13 +14,16 @@ router.post('/room', function(req, res, next){
     var name = req.body.name;
     var description = req.body.description;
     var difficulty = req.body.difficulty;
+    var themeColor = req.body.themeColor;
 
     var newRoom = new Room({ //Create the room object
         name: name,
         description: description,
         difficulty: difficulty,
+        themeColor: themeColor,
     })
 
+    console.log(newRoom)
     newRoom.save(); //Save the new room
 
     res.redirect('/rooms'); //Redirect to the rooms route
