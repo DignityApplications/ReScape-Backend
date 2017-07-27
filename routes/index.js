@@ -66,7 +66,7 @@ router.get('/login', function(req, res, next){
 })
 
 router.post('/login', passport.authenticate('local', { successRedirect: '/loggedin',
-                                                    failureRedirect: '/login' }));
+                                                    failureRedirect: '/loggedin' }));
 
 /* GET /logout */
 router.get('/logout', function(req, res, next) {
@@ -77,7 +77,7 @@ router.get('/logout', function(req, res, next) {
 
 /* GET /loggedin */
 router.get('/loggedin', function(req, res, next){
-  if (req.user) res.send('You are logged in as ' + req.user.firstName + ' ' + req.user.lastName)
-  else res.send('You are not logged in')
+  if (req.user) res.json({loggedIn: true})
+  else res.json({loggedIn: false})
 })
 module.exports = router;
