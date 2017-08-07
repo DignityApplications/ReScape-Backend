@@ -1,0 +1,13 @@
+<form method="POST" enctype="multipart/form-data">
+    Name: <br><input type="text" name="name" /><br>
+    Story Text: <br><textarea name="storyText"></textarea><br>
+    Room: 
+    <select name="room">
+        {{#each rooms}}
+            <option value="{{this._id}}">{{this.name}}</option>
+        {{/each}}
+    </select><br>
+    Background Image: <input name="backgroundImage" type="file" /><br>
+    Sequence: <br><input type="number" name="sequence" /><br>
+    <input type="submit" value="Submit" />
+</form>

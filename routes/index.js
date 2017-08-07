@@ -6,6 +6,7 @@ var LocalStrategy = require('passport-local').Strategy;
 //Models
 var User = require('../models/user')
 var Room = require('../models/room')
+var Scene = require('../models/scene')
 
 
 /* Configure Passport local strategy */
@@ -52,6 +53,12 @@ router.get('/rooms', function(req, res, next) { //We return every room
   });
 });
 
+/* GET /scenes */
+router.get('/scenes', function(req, res, next){ //We return every scene
+  Scene.find({}).exec(function(err, scenes){
+    res.json(scenes);
+  });
+});
 
 /* GET /users */
 router.get('/users', function(req, res, next){ //We return every user
@@ -77,6 +84,7 @@ router.get('/logout', function(req, res, next) {
 
 /* GET /loggedin */
 router.get('/loggedin', function(req, res, next){
+  req.logout();
   if (req.user) res.json({firstName: req.user.firstName, lastName: req.user.lastName, email:req.user.email , loggedIn: true})
   else res.json({loggedIn: false})
 })
