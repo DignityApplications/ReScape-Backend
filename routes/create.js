@@ -70,10 +70,10 @@ router.post('/scene', uploading.single('backgroundImage'), function(req, res, ne
     var roomID = req.body.room;
     var sequence = req.body.sequence;
 
-    var backgroundImage = {
+    var backgroundImage = (req.file) ? {
         fileName: req.file.filename,
         originalName: req.file.originalname
-    }
+    } : null
 
     var newScene = new Scene({
         name: name,

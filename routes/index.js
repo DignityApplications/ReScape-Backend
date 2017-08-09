@@ -84,7 +84,6 @@ router.get('/logout', function(req, res, next) {
 
 /* GET /loggedin */
 router.get('/loggedin', function(req, res, next){
-  req.logout();
   if (req.user) res.json({firstName: req.user.firstName, lastName: req.user.lastName, email:req.user.email , loggedIn: true})
   else res.json({loggedIn: false})
 })
