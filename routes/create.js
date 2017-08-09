@@ -65,28 +65,41 @@ router.get('/scene', function(req, res, next){
 });
 
 router.post('/scene', uploading.single('backgroundImage'), function(req, res, next){
-    var name = req.body.name;
-    var storyText = req.body.storyText;
-    var roomID = req.body.room;
-    var sequence = req.body.sequence;
+    Room.findOne({_id: req.body.room}).exec(function(err, room){
+        if (room) {
 
-    var backgroundImage = (req.file) ? {
-        fileName: req.file.filename,
-        originalName: req.file.originalname
-    } : null
+            var name = req.body.name;
+            var storyText = req.body.storyText;
+            var roomID = req.body.room;
+            var sequence = req.body.sequence;
 
-    var newScene = new Scene({
-        name: name,
-        storyText: storyText,
-        room: roomID,
-        sequence: sequence,
-        backgroundImage: backgroundImage,
+            var backgroundImage = (req.file) ? { //If a file has been uploaded
+                fileName: req.file.filename,
+                originalName: req.file.originalname
+            } : null
+
+            var newScene = new Scene({ //Create the new scene
+                name: name,
+                storyText: storyText,
+                room: roomID,
+                sequence: sequence,
+                backgroundImage: backgroundImage,
+            });
+
+            newScene.save(); //Save the scene
+
+            room.scenes.push(newScene._id); //Add the new scene the the scenes array for the room
+
+            room.save(); //Save the room
+
+            res.redirect('/scenes')
+        } else {
+            res.redirect('/create/scene')
+        }
+
+
     });
-
-    newScene.save();
-
-    res.redirect('/scenes')
-})
+});
 
 /* GET and POST to /user */
 router.get('/user', function(req, res, next){

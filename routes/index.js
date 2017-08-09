@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+var _ = require('lodash');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 
@@ -56,6 +57,10 @@ router.get('/rooms', function(req, res, next) { //We return every room
 /* GET /scenes */
 router.get('/scenes', function(req, res, next){ //We return every scene
   Scene.find({}).exec(function(err, scenes){
+
+    //Filter by params
+    if (req.query.room) scenes = _.filter(scenes, function(o){ return (o.room == req.query.room)});
+
     res.json(scenes);
   });
 });
