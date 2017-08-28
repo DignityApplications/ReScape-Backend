@@ -1,0 +1,16 @@
+<form method="POST" enctype="multipart/form-data">
+    Name: <br><input type="text" name="name" /><br>
+    Sequence: <br><input type="number" name="sequence" /><br>
+    Scene: 
+    <select name="scene">
+        {{#each scenes}}
+            <option value="{{this._id}}">{{this.name}}</option>
+        {{/each}}
+    </select><br>
+    Image Overlay (transparent): <input name="backgroundImage" type="file" /><br>
+    Password Number of Columns (optional): <br><input type="number" name="numColumns" /><br>
+    Password Number of Rows (optional): <br><input type="number" name="numRows" /><br>
+    Password (use row.column + space format. I.E. 2.1 3.4 2.2 1.1 -- Password would be 2nd row 1st column, 3rd row 4th column 2nd row 2nd column 1st row 1st column. Columns/Rows start at 1, not 0):
+    <br><input type="text" name="password" /><br>
+    <input type="submit" value="Submit" />
+</form>

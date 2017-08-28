@@ -101,6 +101,22 @@ router.post('/scene', uploading.single('backgroundImage'), function(req, res, ne
     });
 });
 
+/* GET and POST to /panel */
+router.get('/panel', function(req, res, next){
+    Scene.find({}).exec(function(err, scenes){ //Get all of the scenes for the scene dropdown
+        res.render('forms/panel', {scenes: scenes})
+    });
+});
+
+router.post('/panel', function(req, res, next){
+    //Retrieve req.body fields
+
+    //Make the new panel
+
+    //Redirect
+    res.redirect('/panels'); //Redirect to the users route
+})
+
 /* GET and POST to /user */
 router.get('/user', function(req, res, next){
     res.render('forms/user')

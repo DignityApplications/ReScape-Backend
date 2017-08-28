@@ -8,6 +8,7 @@ var LocalStrategy = require('passport-local').Strategy;
 var User = require('../models/user')
 var Room = require('../models/room')
 var Scene = require('../models/scene')
+var Panel = require('../models/panel')
 
 
 /* Configure Passport local strategy */
@@ -63,6 +64,13 @@ router.get('/scenes', function(req, res, next){ //We return every scene
 
     res.json(scenes);
   });
+});
+
+/* GET /panels */
+router.get('/panels', function(req, res, next){
+  Panel.find({}).exec(function(err, panels){
+    res.json(panels);
+  })
 });
 
 /* GET /users */
